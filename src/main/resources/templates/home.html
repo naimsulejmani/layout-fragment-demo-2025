@@ -1,0 +1,17 @@
+
+<th:block th:replace="~{shared/_header}"></th:block>
+
+<main>
+    <p>Welcome to home page!</p>
+    <hr/>
+    <h1>Lajmet</h1>
+    <th:block th:insert="~{shared/_news::showNews('Reali fitoi mbreme', 'Nje loje e veshtire qe menzi e fituan 1:0 (Juventus aka Zonja e vjeter)')}">
+
+    </th:block>
+
+    <th:block th:insert="~{shared/_news::showNews('Barcelona demolon Olimpiakos', 'Jo veq olimpiakosin po edhe shume te tjere!')}">
+
+    </th:block>
+</main>
+
+<th:block th:insert="~{shared/_footer}"></th:block>

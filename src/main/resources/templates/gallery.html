@@ -1,0 +1,11 @@
+<th:block th:replace="~{shared/_header}"></th:block>
+
+<main>
+    <p>Welcome to gallery page!</p>
+    <hr>
+    <th:block th:replace="~{shared/_product::showProduct('Pizza', 1, 'https://tb-static.uber.com/prod/image-proc/processed_images/2aa841d85d959a0667efddc7834e915b/3ac2b39ad528f8c8c5dc77c59abb683d.jpeg', true)}">
+
+    </th:block>
+</main>
+
+<th:block th:insert="~{shared/_footer}"></th:block>

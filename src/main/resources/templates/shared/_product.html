@@ -1,0 +1,21 @@
+<div th:fragment="showProduct(title,price,image,is24Hour)">
+<div>
+    <h4 th:text="${title}"></h4>
+</div>
+    <div>
+        Cmimi: <span th:text="${price}"></span> EUR.
+    </div>
+    <div>
+        <img th:src="${image}" th:alt="${title}" style="width: 100px; height: 100px;"/>
+    </div>
+    <p>
+        Vjen per 24 Ore: <span th:text="${is24Hour ? 'PO' : 'JO'}"></span>
+    </p>
+    <p th:if="${price>=10}">
+        Shume Shtrejte
+    </p>
+    <p th:unless="${price>=10}">
+        Shume lire!
+    </p>
+
+</div>

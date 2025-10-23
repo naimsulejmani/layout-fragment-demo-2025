@@ -1,0 +1,14 @@
+<th:block th:replace="~{shared/_header}"></th:block>
+
+<main>
+    <p>Welcome to contact page!</p>
+
+    <div th:switch="${role}" th:with="role='sedi'">
+        <p th:case="'ADMIN'">You are an admin!</p>
+        <p th:case="'USER'">You are a user!</p>
+        <p th:case="*">You are a guest!</p>
+    </div>
+</main>
+
+<th:block th:insert="~{shared/_footer}"></th:block>
+
