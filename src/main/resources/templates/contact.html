@@ -8,6 +8,10 @@
         <p th:case="'USER'">You are a user!</p>
         <p th:case="*">You are a guest!</p>
     </div>
+    <hr>
+    <div th:each="number: ${#numbers.sequence(1, 10)}">
+            <p th:text="${number}"></p>
+    </div>
 </main>
 
 <th:block th:insert="~{shared/_footer}"></th:block>
