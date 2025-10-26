@@ -1,0 +1,93 @@
+
+
+<!--
+   Fragment: productGrid
+   Params:
+     - products : Iterable<ProductView>
+     - columns  : (optional) 2/3/4/6 -> how many per row on lg+
+   Expected ProductView fields (adapt as needed):
+     id, slug, name, storage, color, price, oldPrice, imageUrl,
+     isNew, fast24h, currencySymbol (e.g., "€")
+ -->
+<div th:fragment="productGrid(products, columns=4)">
+    <div class="row g-3 g-md-4">
+        <div class="col-12 col-sm-6"
+             th:classappend="${columns}==6 ? ' col-lg-2' :
+                           (${columns}==4 ? ' col-lg-3' :
+                           (${columns}==3 ? ' col-lg-4' : ' col-lg-6'))"
+             th:each="p : ${products}">
+            <div class="card product-card h-100 border-0 shadow-sm hover-shadow position-relative">
+
+                <!-- Badges (top-left) -->
+                <div class="position-absolute start-0 top-0 p-2 d-flex gap-2">
+                    <span class="badge bg-primary rounded-pill small fw-semibold" th:if="${p.isNew}">Risi</span>
+                    <span class="badge bg-warning text-dark rounded-pill small fw-semibold d-inline-flex align-items-center gap-1"
+                          th:if="${p.fast24h}">
+              <span class="bi bi-truck" aria-hidden="true"></span> 24h
+            </span>
+                </div>
+
+                <!-- Wishlist (top-right) -->
+                <button type="button"
+                        class="btn btn-light btn-sm rounded-circle position-absolute end-0 top-0 m-2"
+                        th:attr="data-id=${p.id}"
+                        aria-label="Add to favorites">
+                    <i class="bi bi-heart"></i>
+                </button>
+
+                <!-- Image -->
+                <a th:href="@{/products/{slug}(slug=${p.slug})}" class="text-decoration-none">
+                    <div class="ratio ratio-1x1 bg-light rounded-top">
+                        <img th:src="${p.imageUrl}"
+                             alt=""
+                             class="card-img-top p-3" style="width: 100px; height: 80px;">
+                    </div>
+                </a>
+
+                <!-- Body -->
+                <div class="card-body">
+                    <h6 class="card-title mb-1 line-clamp-2">
+                        <a th:href="@{/products/{slug}(slug=${p.slug})}"
+                           class="stretched-link text-dark text-decoration-none">
+                            <span th:text="${p.name}">Apple iPhone 17 Pro Max</span>
+                        </a>
+                    </h6>
+                    <div class="text-muted small mb-2">
+                        <span th:if="${p.storage}" th:text="${p.storage} + ', '">256GB, </span>
+                        <span th:if="${p.color}"   th:text="${p.color}">Cosmic Orange</span>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="d-flex align-items-baseline gap-2">
+                        <div class="fw-bold fs-5"
+                             th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 2, 'POINT')} + ' ' + ${p.currencySymbol}">
+                            1,699.50 €
+                        </div>
+                        <div class="text-muted text-decoration-line-through"
+                             th:if="${p.oldPrice != null}"
+                             th:text="${#numbers.formatDecimal(p.oldPrice, 0, 'COMMA', 2, 'POINT')} + ' ' + ${p.currencySymbol}">
+                            1,849.00 €
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer (actions) -->
+                <div class="card-footer bg-transparent border-0 pt-0 pb-3">
+                    <div class="d-flex gap-2">
+                        <form th:action="@{/cart/add}" method="post" class="m-0">
+                            <input type="hidden" name="id" th:value="${p.id}">
+                            <button class="btn btn-dark btn-sm w-100" type="submit">
+                                Add to cart
+                            </button>
+                        </form>
+                        <a class="btn btn-outline-secondary btn-sm"
+                           th:href="@{/products/{slug}(slug=${p.slug})}">
+                            Details
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

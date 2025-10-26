@@ -1,0 +1,8 @@
+<html th:replace="~{shared/_layout::layout('Lista me produkte',
+null,~{::main},null)}">
+
+<main>
+    <div th:replace="~{shared/_productFragment::productGrid(${products},4)}"></div>
+</main>
+
+</html>
